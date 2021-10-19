@@ -17,7 +17,7 @@ void printMax(int arr[], int n, int k)
         
         while (!dq.empty() && arr[i] >= arr[dq.back()])
             dq.pop_back(); 
-
+	    // remove all elements which are smaller than the current element.
         
         dq.push_back(i);
     }
@@ -26,21 +26,24 @@ void printMax(int arr[], int n, int k)
     for (int i=k; i < n; ++i) {
         
         cout << arr[dq.front()] << " ";
+	// print the max of prev window
 
         
         while ((!dq.empty()) && dq.front() <= i - k)
             dq.pop_front();
-
+	// remove element from front if it doenst lie in the current window
        
         while ((!dq.empty()) && arr[i] >= arr[dq.back()])
             dq.pop_back();
-
+	// remove element which are smaller than the current array element
        
         dq.push_back(i);
     }
 
     
    cout << arr[dq.front()];
+   // to print the max of prev window
+   
 }
 
 int main()
