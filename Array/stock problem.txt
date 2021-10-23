@@ -1,0 +1,32 @@
+vector<vector<int> > stockBuySell(vector<int> A, int n){
+        // code here
+        vector<vector<int>> v;
+        int pointer=A[0];
+        int first=0;
+        bool greater = false;
+        
+        for(int i=1;i<n;i++){
+            
+          
+                if(A[i]>pointer){
+                    greater=true;
+                    if(i==n-1) 
+                        v.push_back({first,i});
+                    
+                    else pointer=A[i];
+                }
+                else if(greater){
+                    v.push_back({first,i-1});
+                    first=i;
+                    pointer=A[first];
+                    greater=false;
+                }
+                else {
+                    first=i;
+                    pointer=A[first];
+                }
+
+        }
+
+        return v;
+    }
