@@ -1,0 +1,32 @@
+int kadane(int arr[],int num){
+        int maxi=arr[0];
+        int res=arr[0];
+        
+        for(int i=1;i<num;i++){
+            maxi = max(arr[i],maxi+arr[i]);
+            res= max(maxi,res);
+        }
+        return res;
+     }
+        
+        
+    int circularSubarraySum(int arr[], int num){
+        
+        // your code here
+       int res = kadane(arr,num);
+       
+       if(res<0) return res;
+       
+       int sum=0;
+       
+       for(int i=0;i<num;i++){
+           sum+=arr[i];
+           arr[i]=-arr[i];
+       }
+       int res2 = kadane(arr,num);
+       
+       if(res2 + sum > res){
+           return res2+sum;
+       }
+       else return res; 
+    }
