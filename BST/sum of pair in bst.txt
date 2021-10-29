@@ -1,0 +1,60 @@
+bool findPair(Node* root, int X) 
+{
+    // Your code here
+    
+stack<Node *> s;
+    
+vector<int> v;
+    
+Node* cur = root;
+    
+   
+ while(cur!=NULL || s.empty()==false){
+        
+ 	while(cur!=NULL){
+            
+	s.push(cur);
+            
+	cur=cur->left;
+        
+}
+        
+
+cur=s.top();
+        
+s.pop();
+        
+v.push_back(cur->data);
+
+cur=cur->right;
+    
+}
+  
+    
+    
+
+
+int low=0;
+    
+int high=v.size()-1;
+    
+    
+	while(low<high){
+        
+	if(v[low]+v[high] > X){
+            
+	high--;
+        }
+        
+	else if(v[low]+v[high]<X){
+            
+	low++;
+        }
+        
+	else return true;
+    
+	}
+   
+ 
+return false;
+}
