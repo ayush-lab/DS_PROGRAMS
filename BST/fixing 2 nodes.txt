@@ -1,0 +1,43 @@
+void changeNode(struct Node* root, Node* &prev,Node* &first, Node * &second){
+  
+        if(root == NULL) return;
+        
+        changeNode(root->left,prev,first,second);
+        
+        if(prev!=NULL and root->data < prev->data){
+            
+            if(first == NULL){
+                first = prev;
+            }
+            prev=root;
+            second = root;
+        }
+        
+        prev = root;
+        changeNode(root->right,prev,first,second);
+}
+
+
+////////////////////////////////////////
+/////////////////
+////////////////////////////
+///////////////////
+//////////
+///////
+////
+/
+
+class Solution {
+  public:
+   
+    void correctBST( struct Node* root )
+    {
+        // add code here.
+         Node* prev=NULL;
+         Node* first=NULL;
+         Node* second=NULL;
+         Node* temp=NULL;
+        changeNode(root,prev,first,second);
+        swap(first->data,second->data);
+    }
+};
