@@ -1,0 +1,75 @@
+struct NodeDetails{
+    Node* ptr;
+    int min,max;
+};
+
+Node* getNewNode(int x){
+    Node* temp = new Node(0);
+    temp->data = x;
+    temp->right=NULL;
+    temp->left=NULL;
+    return temp;
+}
+
+Node* constructBst(int arr[], int n)
+{
+    // Code here 
+    if(n==0){
+        return NULL;
+    }
+    
+    queue<NodeDetails> q;
+    
+    int i=0;
+    NodeDetails nod,temp;
+    
+    // Node* newNode = new Node(0);
+    // newNode->data = arr[i++];
+    // newNode->left=NULL;
+    // newNode->right=NULL;
+    Node* newNode = getNewNode(arr[i++]);
+    
+    nod.ptr = newNode;
+    nod.min=INT_MIN;
+    nod.max=INT_MAX;
+    
+    Node* root = nod.ptr;
+    q.push(nod);
+    
+    while(i!=n){
+        
+        temp = q.front();
+        q.pop();
+        
+        if(i<n && (temp.ptr->data > arr[i] && temp.min < arr[i])){
+            // NodeDetails leftNode;
+            // newNode = new Node(0);
+            // newNode->data = arr[i++];
+            // newNode->left=NULL;
+            // newNode->right=NULL;
+        
+            
+            nod.ptr = getNewNode(arr[i++]);
+            nod.min = temp.min;
+            nod.max = temp.ptr->data;
+            q.push(nod);
+            
+            temp.ptr->left = nod.ptr;
+        }
+        if(i<n && (temp.ptr->data < arr[i] && temp.max > arr[i])){
+            // NodeDetails rightNode;
+            // newNode = new Node(0);
+            // newNode->data = arr[i++];
+            // newNode->left=NULL;
+            // newNode->right=NULL;
+            nod.ptr = getNewNode(arr[i++]);
+            nod.min = temp.ptr->data;
+            nod.max = temp.max;
+            q.push(nod);
+            
+            temp.ptr->right = nod.ptr;
+        }
+        
+    }
+    return root;
+}

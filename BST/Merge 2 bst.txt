@@ -1,0 +1,4 @@
+1st method)
+
+1. create 2 arrays and push the inorder traversal of both of the bst in the arrays respectively
+2. merge the array into another array
