@@ -38,3 +38,12 @@ Node* sortedMerge(Node* head1, Node* head2)
     
     return ans;
 }  
+
+
+2nd approach
+
+Use two pointer.
+
+one point at start and other nth position after start.
+
+when other pointer reaches NULL then first has reached the required position.
