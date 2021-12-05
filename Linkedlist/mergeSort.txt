@@ -1,0 +1,61 @@
+class Solution{
+  public:
+  
+    Node* mergeBoth(Node* first,Node* second){
+        Node* ans= NULL;
+        if(!first) return second;
+        
+        if(!second) return first;
+        
+         if(first->data < second->data){
+                ans=first;
+                ans->next = mergeBoth(first->next,second);
+            }
+        else {
+            ans=second;
+            ans->next = mergeBoth(first,second->next);
+        }
+        
+        
+        return ans;
+    }
+  
+    void Devide(Node** head){
+        Node* cur =*head;
+        Node* first,*second;
+        
+        if(!cur or !cur->next) return ;
+        
+        middleEle(cur,&first,&second);
+        
+        Devide(&first);
+        Devide(&second);
+        *head = mergeBoth(first,second);
+    }
+    
+    void middleEle(Node* head, Node** first, Node** second){
+        Node* cur=head,*slow=head,*fast=head;
+        
+        while(!fast and !fast->next){
+            
+            fast = fast->next->next;
+            
+            if(fast==NULL){
+                
+            }
+            else slow=slow->next;
+        }
+        
+        *first = cur;
+        *second=slow->next;
+        slow->next=NULL;
+    }
+    
+    
+    //Function to sort the given linked list using Merge Sort.
+    Node* mergeSort(Node* head) {
+        // your code here
+        Devide(&head);
+        return head;
+    }
+};

@@ -1,0 +1,82 @@
+class Solution
+{
+    public:
+    //Function to sort a linked list of 0s, 1s and 2s.
+    Node* segregate(Node *head) {
+        
+        // Add code here
+        Node *first=NULL,*second=NULL,*third=NULL,*cur=head;
+        Node*second_first,*third_first,*ans=NULL;
+        
+        while(cur!=NULL){
+            // cout<<cur->data<<endl;
+            
+            if(cur->data==0){
+                if(!first)
+                    {first=cur;
+                     ans=first;
+                    }
+                else{
+                    first->next=cur;
+                    first=first->next;
+                }
+            }
+            else if(cur->data==1){
+                if(!second)
+                    {second=cur;
+                    second_first = second;}
+                else{
+                    second->next=cur;
+                    second = second->next;
+                }
+            }
+            else if(cur->data==2){
+                if(!third)
+                    {third=cur;
+                     third_first=third;}
+                else{
+                    third->next=cur;
+                    third=third->next;
+                }
+            }
+            
+            cur=cur->next;
+        }
+        
+        if(first and second){
+            first->next=second_first;
+            if(third){
+                second->next=third_first;
+                third->next=NULL;
+                return ans;
+            }
+            else{
+                second->next=NULL;
+                return ans;
+            }
+        }
+        if(first and !second and third){
+            first->next=third_first;
+            third->next=NULL;
+            return ans;
+        }
+        if(first and !second and !third){
+            first->next=NULL;
+            return ans;
+        }
+        if(!first and second and third){
+            second->next=third_first;
+            third->next=NULL;
+            return second_first;
+        }
+        if(!first and !second and third){
+            third->next=NULL;
+            return third_first;
+        }
+        if(!first and second and !third){
+            second->next=NULL;
+            return second_first;
+        }
+        
+    }
+};

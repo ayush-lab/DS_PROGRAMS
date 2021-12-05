@@ -1,0 +1,57 @@
+class Solution{
+  public:
+  
+    void reverse(Node* head){
+        Node *prev=head;
+        Node *ans=head;    
+        head=head->next;
+        
+        Node* last = head;
+        
+        while(head!=NULL){
+        
+            Node* cur =head;
+            Node* cur_next=head->next;
+            
+            head->next=prev;
+            prev=head;
+            head = cur_next;
+        }
+        
+        ans->next = prev;
+    
+        return ;
+    }
+    
+    //Function to check whether the list is palindrome.
+    bool isPalindrome(Node *head)
+    {
+        //Your code here
+        Node *first=head,*second=head;
+        
+        while(second->next!=NULL and second->next->next!=NULL){
+            
+            first=first->next;
+            second=second->next->next;
+        }
+        
+        Node* middle = first;
+        
+        reverse(middle);
+        // cout<<middle->data<<endl;
+        // cout<<middle->next->data<<endl;
+       
+        
+        for(Node* cur=head;cur!=first->next;cur=cur->next){
+            if(middle->next == NULL){
+                break;
+            }
+            middle=middle->next;
+            if(cur->data != middle->data){
+                return false;
+            }
+        }
+        
+        return true;
+    }
+};
