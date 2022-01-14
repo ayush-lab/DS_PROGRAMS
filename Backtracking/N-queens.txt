@@ -1,0 +1,54 @@
+class Solution {
+public:
+    vector<vector<string>> solveNQueens(int n) {
+        vector<vector<string>> res;
+        vector<string> board(n,string(n, '.'));
+        
+        solve(res,board,n,0);
+        
+        return res;
+        
+    }
+    
+    void solve(vector<vector<string>>&res,vector<string> &board,int n, int col){
+        // cout<<n<<endl;
+        if(col == n){
+            res.push_back(board);
+            return ;
+        }
+        
+        for(int i=0;i<n;i++){
+            if(isSafe(i,col,board,n)){
+                // cout<<"yes\n"<<endl;
+                board[i][col]='Q';
+                solve(res,board,n,col+1);
+                board[i][col]='.';
+            }
+           
+        }
+         return ;
+    }
+    
+    bool isSafe(int row,int col,vector<string>board,int n){
+        
+        for(int i=0;i<col;i++){
+            if(board[row][i]=='Q'){
+                return false;
+            }
+        }
+        
+       
+        
+        for(int r=row,c=col;r>=0 and c>=0;r--,c--){
+            if(board[r][c]=='Q') return false;
+        }
+     
+        for(int r=row,c=col;r<n and c>=0;r++,c--){
+            if(board[r][c]=='Q') return false;
+        }
+      
+        
+        return true;
+        
+    }
+};

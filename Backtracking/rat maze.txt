@@ -1,0 +1,47 @@
+bool issafe(vector<int>maze[],int i,int j,int n){
+    return(i<n && j<n && maze[i][j]!=0);
+}
+
+bool solvemaze(vector<int>maze[],int i, int j,int n, vector<int> sol[]){
+    if(i==n-1 && j==n-1){
+        sol[i][j]=1;
+        return true;
+    }
+    
+    if(issafe(maze,i,j,n)){
+        sol[i][j]=1;
+        //you were iterating in reverse order
+        for(int o=1;o<=maze[i][j];o++){
+            if(solvemaze(maze,i,j+o,n,sol))
+            return true;
+            if(solvemaze(maze,i+o,j,n,sol))
+            return true;
+        }
+        sol[i][j]=0;
+    }
+    return false;
+}
+
+void solve(int n, vector<int> maze[]) 
+{
+    //segmentation fault was because of the way you declared the sol vector
+    // declare it locally, as array of vectors
+    vector<int> sol[n];
+    for(int i = 0; i < n; i++)
+    {
+        sol[i].assign(n, 0);
+    }
+    if(!solvemaze(maze,0,0,n,sol)){
+        //endl after -1 otherwise wrong answer
+        cout<<-1<<endl;
+    }
+    else{
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                cout<<sol[i][j]<<" ";
+            }
+            //endl after each row
+            cout<<endl;
+        }
+    }
+}

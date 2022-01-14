@@ -1,0 +1,44 @@
+struct compare 
+    {
+        bool operator()(
+             struct Node* a, struct Node* b)
+        {
+            return a->data > b->data;
+        }
+    };
+    //Function to merge K sorted linked list.
+    Node * mergeKLists(Node *arr[], int K)
+    {
+          // Your code here
+          Node* ans=NULL,*cur;
+          priority_queue<Node*,vector<Node*>,compare> p;
+           
+          for(int i=0;i<K;i++){
+              Node* temp = arr[i];
+              p.push(temp);
+     
+
+          }
+              
+          while(!p.empty()){
+              
+              Node* ele = p.top();
+              
+              p.pop();
+              
+              if(ans==NULL){
+                  ans=ele;
+                  cur = ans;
+              }
+              else{
+                  ans->next=ele;
+                  ans=ans->next;
+              }
+              
+              if(ele->next!=NULL){
+                  p.push(ele->next);
+              }
+          }
+        
+        return cur;
+    }
