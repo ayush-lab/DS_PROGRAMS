@@ -1,0 +1,48 @@
+void solve(vector<int> A, vector<vector<int>>&ans, vector<int> car,int target,int idx){
+        
+        // cout<<"target=="<<target<<endl;
+        if(target==0){
+            ans.push_back(car);
+    
+            return ;
+        }
+        
+        if(target<0){
+            return;
+        }
+        
+        
+        for(int i=idx;i<A.size();i++){
+            if(A[i]<=target){
+                car.push_back(A[i]);
+                solve(A,ans,car,target-A[i],i);
+                car.pop_back();
+            }
+            else {
+                break;
+            }
+        }
+        return ;
+    }
+    
+    vector<vector<int> > combinationSum(vector<int> &A, int B) {
+        // Your code here
+        vector<vector<int>> ans;
+        vector<int> car;
+        int idx=0;
+        // int target=B;
+        // sort(A.begin(),A.end());
+        set<int> s;
+        
+        for(auto i:A) s.insert(i);
+        A.clear();
+        for(auto i:s){
+            A.push_back(i);
+        }
+        
+        solve(A,ans,car,B,idx);
+        return ans;
+    }
+    
+    
+};

@@ -1,0 +1,47 @@
+class Solution
+{
+    public:
+    //Function to find the largest number after k swaps.
+    string findMaximumNum(string str, int k)
+    {
+       // code here.
+       int start=0;
+       string max = str;
+       solve(str,max,k,start);
+       return max;
+    }
+    
+    bool solve(string str, string &max,int k,int start){
+        if(k==0 ){
+            return true;
+        }
+        char largest=-1;
+        char num = str[start];
+        
+        for(int i=start;i<str.length();i++){
+
+            if(str[i]>=largest){
+                largest=str[i];
+            }
+        }
+        
+        
+        if(num != largest){
+            k--;
+        }
+        
+        for(int i=str.length()-1;i>=0;i--){
+            if(largest == str[i]){
+                swap(str[i],str[start]);
+                if(str>max){
+                    max=str;
+                }
+                solve(str,max,k,start+1);
+                swap(str[start],str[i]);
+            }
+        }
+        
+      
+        
+    }
+};
