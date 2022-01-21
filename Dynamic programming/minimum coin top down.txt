@@ -1,0 +1,31 @@
+long long minimumNumberOfCoins(int coins[],int numberOfCoins,int value)
+    {
+        // your code here
+        int dp[value+1];
+        
+        for(int i=1;i<=value;i++){
+            dp[i]=INT_MAX;
+        }
+        
+        dp[0]=0;
+        
+        
+        for(int i=1;i<=value;i++){
+            for(int j=0;j<numberOfCoins;j++){
+                if(coins[j]<=i){
+                    int res = dp[i-coins[j]];
+                    if(res==INT_MAX) continue;
+                    
+                    dp[i]=min(dp[i],res+1);
+           
+                }
+            }
+   
+        }
+        
+        long long ans = dp[value];
+     
+        if(ans and ans!=INT_MAX)
+        return ans;
+        else return -1;
+    }
