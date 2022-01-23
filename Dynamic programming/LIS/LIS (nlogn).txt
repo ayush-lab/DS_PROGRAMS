@@ -1,0 +1,50 @@
+class Solution
+{
+    public:
+    
+    int ceilidx(int temp[], int l,int r,int cur){
+
+        while(r>l){
+            int mid = l + (r-l)/2;
+            
+            if(temp[mid]>=cur){
+                r=mid;
+            }
+            
+            else{
+                l = mid+1;
+            }
+        }
+        
+        return r;
+    }
+    
+    //Function to find length of longest increasing subsequence.
+    int longestSubsequence(int n, int arr[])
+    {
+   
+       int temp[n];
+       int len=1;
+    
+       temp[0] = arr[0];
+   
+       for(int i=1;i<n;i++){
+      
+            if(arr[i]>temp[len-1]){
+                temp[len]=arr[i];
+                len++;
+            }
+            else{
+    
+                int ind = ceilidx(temp,0,len-1,arr[i]);
+                temp[ind]=arr[i];
+            }
+            
+       }
+       
+       return len;
+       
+       
+    }
+};
+

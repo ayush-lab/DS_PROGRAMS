@@ -1,0 +1,27 @@
+int NumberOfPath(int a, int b)
+    {
+        //code here
+        vector<vector<int>> dp(a+1,vector<int>(b+1,-1));
+        // dp[0][0]=0;
+        
+        for(int i=0;i<a;i++){
+            for(int j=0;j<b;j++){
+                
+                if(j==0 and i==0) dp[i][j]=1;
+                
+                else{
+                     int left=0;
+                     int right=0;
+                     
+                     if(i>0) left = dp[i-1][j];
+                     if(j>0) right= dp[i][j-1];
+                    
+                     dp[i][j] = left+right;
+                }
+               
+            }
+        }
+        
+        return dp[a-1][b-1];
+    }
+};
