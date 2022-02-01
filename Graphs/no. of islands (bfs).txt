@@ -1,0 +1,100 @@
+// { Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+ // } Driver Code Ends
+class Solution {
+  public:
+    // Function to find the number of islands.
+    
+    bool inside(vector<vector<char>> &grid, int i,int j,int row,int col){
+      
+          if(i<0 or j<0 or i>=row or j>=col ) return false;
+          if(grid[i][j]=='1' ) return true;
+          
+          else return false;
+    }
+    
+    void bfs(vector<vector<char>> &grid,  int i, int j, int row, int col){
+      
+            // queue<int> q;
+            queue<pair<int,int>> q;
+            q.push({i,j});
+            grid[i][j]=2;
+        
+            int dx[3] = {0,1,-1};
+            
+            while(q.empty()==false){
+                pair<int,int>ele = q.front();
+                q.pop();
+                
+                int first=ele.first;
+                int second=ele.second;
+                
+                
+                for(int i=0;i<3;i++){
+                    for(int j=0;j<3;j++){
+                        
+                        if(i==0 and j==0) continue;
+                        
+                            int new_row = first+dx[i];
+                            int new_col = second+dx[j];
+                            
+                            if( inside(grid,new_row, new_col,row,col) ){
+                                
+                                    q.push({first+dx[i],second+dx[j]});
+            
+                                    grid[first+dx[i]][second+dx[j]]=2;
+                        
+                            }
+                        
+                    }
+                }
+            }
+
+        
+        
+    
+    }
+    
+    int numIslands(vector<vector<char>>& grid) {
+        // Code here
+        
+        int row = grid.size();
+        int col = grid[0].size();
+        
+        int ans=0;
+        
+        for(int i=0;i<row;i++){
+            for(int j=0;j<col;j++){
+                if(grid[i][j]=='1'){
+                    ans++;
+                    bfs(grid,i,j,row,col);
+                }
+            }
+        }
+        
+        return ans;
+        
+    }
+};
+
+// { Driver Code Starts.
+int main() {
+    int tc;
+    cin >> tc;
+    while (tc--) {
+        int n, m;
+        cin >> n >> m;
+        vector<vector<char>> grid(n, vector<char>(m, '#'));
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                cin >> grid[i][j];
+            }
+        }
+        Solution obj;
+        int ans = obj.numIslands(grid);
+        cout << ans << '\n';
+    }
+    return 0;
+}  // } Driver Code Ends
