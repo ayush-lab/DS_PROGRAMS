@@ -1,0 +1,88 @@
+// { Driver Code Starts
+#include<bits/stdc++.h>
+using namespace std;
+
+ // } Driver Code Ends
+class Solution {
+  public:
+  
+    void dfs(vector<int> adj[],int cur,int parent, vector<bool>&visited, set<int> &points, 
+         vector<int> &temp,vector<int> &low, int &counter){
+        
+        visited[cur]=1;
+        temp[cur]=low[cur]=counter++;
+        
+        int child=0;
+        
+        for(auto it: adj[cur]){
+            if(it == parent){
+                continue;
+            }
+            
+            if(visited[it]==false){
+                dfs(adj,it,cur,visited,points,temp,low,counter);
+                low[cur]=min(low[cur],low[it]);
+                child++;
+                if(low[it]>=temp[cur] and parent!=-1){
+                    points.insert(cur);
+                }
+            }
+            
+            else low[cur]=min(low[cur],low[it]);
+        }
+        
+        if(parent==-1 and child>1) points.insert(cur);
+        
+    }
+  
+  
+    vector<int> articulationPoints(int V, vector<int>adj[]) {
+        // Code here
+        set<int> points;
+        vector<int> ans;
+        vector<bool> visited(V,false);
+        vector<int> temp(V,0);
+        vector<int> low(V,0);
+        
+        int counter=0;
+        
+        
+        for(int i=0;i<V;i++){
+            if(visited[i]==false){
+                dfs(adj,i,-1,visited,points,temp,low,counter);
+            }
+        }
+        
+        for(auto i:points){
+            ans.push_back(i);
+        }
+        
+        if(ans.size()==0) return {-1};
+        
+        else return ans;
+        
+        
+    }
+};
+
+// { Driver Code Starts.
+int main(){
+	int tc;
+	cin >> tc;
+	while(tc--){
+		int V, E;
+		cin >> V >> E;
+		vector<int>adj[V];
+		for(int i = 0; i < E; i++){
+			int u, v;
+			cin >> u >> v;
+			adj[u].push_back(v);
+			adj[v].push_back(u);
+		}
+		Solution obj;
+		vector<int> ans = obj.articulationPoints(V, adj);
+		for(auto i: ans)cout << i << " ";
+		cout << "\n";
+	}
+	return 0;
+}  // } Driver Code Ends
