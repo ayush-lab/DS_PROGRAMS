@@ -34,7 +34,6 @@ public:
                 num += upper_bound(arr[i].begin(),arr[i].end(),mid)-arr[i].begin() ;
             }
             
-            if(num==midPos) return num;
             
             if(num<midPos) mn=mid+1;
             else mx=mid;
