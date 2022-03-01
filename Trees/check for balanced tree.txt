@@ -1,0 +1,10 @@
+bool isBalanced(Node *root)
+    {
+        //  Your Code here
+        if(!root) return true;
+       
+        if(abs(height1(root->right) - height1(root->left) ) > 1){
+            return false;
+        }
+        else return isBalanced(root->left) && isBalanced(root->right);
+    }
