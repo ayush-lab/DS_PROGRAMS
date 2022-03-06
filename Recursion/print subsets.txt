@@ -1,0 +1,30 @@
+void solve(vector<int> &res, vector<vector<int>>&ans, vector<int>nums){
+        
+        if(nums.size()==0){
+            ans.push_back(res);
+            return ;
+        }
+        
+        vector<int> a = res;  
+        vector<int> b = res;
+        
+        
+        b.push_back(nums[0]);
+        nums.erase(nums.begin());
+        
+        solve(a,ans,nums);
+        solve(b,ans,nums);
+        
+    }
+    
+    vector<vector<int>> subsets(vector<int>& nums) {
+        
+        vector<vector<int>> ans;
+        
+    
+        vector<int>res; 
+        
+        solve(res,ans,nums);
+        
+        return ans;
+    }
