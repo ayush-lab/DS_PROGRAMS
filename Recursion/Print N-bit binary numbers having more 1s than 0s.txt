@@ -1,0 +1,28 @@
+    void solve(int one,int two,int n, string output,vector<string>&ans){
+        if(n==0){
+            ans.push_back(output);
+            return ;
+        }
+    
+        string op = output;
+        op.push_back('1');
+        solve(one+1,two,n-1,op,ans);
+        
+        if(one>two){
+            string op1 = output;
+            op1.push_back('0');
+            solve(one,two+1,n-1,op1,ans);
+        }
+    }
+
+	vector<string> NBitBinary(int N)
+	{
+	    // Your code goes here
+	    vector<string> ans;
+	    string output = "";
+	    
+	    solve(0,0,N,output,ans);
+	    
+	    return ans;
+	}
+};
