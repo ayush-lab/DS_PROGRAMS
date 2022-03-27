@@ -1,0 +1,45 @@
+// { Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+ // } Driver Code Ends
+class Solution{
+
+	public:
+	
+	long long m = 1e9 + 7;
+	
+	int solve(int arr[],int ind,int sum,vector<vector<int>> &dp){
+	    
+	    if(ind==0){
+	        if(sum-arr[ind]==0 and arr[ind]==0){
+	            return 2;
+	        }
+	        if(sum==0) return 1;
+	        
+	        if(sum-arr[0]==0) return 1;
+	        
+	        return 0;
+	        
+	    }
+	    
+	    if(dp[ind][sum]!=-1) return dp[ind][sum];
+	    
+	    int notpick = solve(arr,ind-1,sum,dp)%m;
+	    int pick =0;
+	    if(arr[ind]<=sum)
+	        pick = solve(arr,ind-1,sum-arr[ind],dp)%m;
+	    
+	    
+	    return dp[ind][sum]=(notpick+pick)%m;
+	    
+	}
+	
+	int perfectSum(int arr[], int n, int sum)
+	{
+        // Your code goes here
+        vector<vector<int>> dp(n,vector<int>(sum+1,-1));
+        return solve(arr,n-1,sum,dp)%m;
+	}
+	  
+};
