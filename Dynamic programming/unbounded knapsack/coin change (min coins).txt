@@ -1,0 +1,35 @@
+int minCoins(int coins[], int M, int V) 
+	{ 
+	    // Your code goes here
+	    vector<int>prev(V+1,0),cur(V+1,0);
+	    
+	    for(int i=0;i<=V;i++){
+	        prev[i]=INT_MAX-1;
+	    }
+	    cur[0]=0;
+	    
+	    for(int i=1;i<=V;i++){
+	        if(i%coins[0]==0){
+	            cur[i]=coins[0]/i;
+	        }
+	        cur[i]=INT_MAX-1;
+	    }
+	    
+	    for(int i=1;i<=M;i++){
+	        for(int j=0;j<=V;j++){
+	            if(j==0) {
+	                cur[j]=0;
+	                continue;
+	            }
+	            if(coins[i-1]<=j){
+	                cur[j]=min(cur[j-coins[i-1]]+1 , prev[j]);
+	            }
+	            else cur[j]=prev[j];
+	        }
+	        prev=cur;
+	    }
+	    
+	    if(cur[V]==INT_MAX or cur[V]==INT_MAX-1 ) return -1;
+	    
+	    return cur[V];
+	} 
