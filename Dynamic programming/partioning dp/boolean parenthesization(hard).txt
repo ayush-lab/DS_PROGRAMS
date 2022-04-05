@@ -1,0 +1,96 @@
+// { Driver Code Starts
+// Initial Template for C++
+
+#include <bits/stdc++.h>
+using namespace std;
+
+ // } Driver Code Ends
+// User function Template for C++
+
+class Solution{
+public:
+
+    unordered_map<string,int>mp;
+    
+    int solve(string &S, int i, int j, bool either){
+        
+        if(i>j) return 0;
+        
+        if(i==j){
+            if(either==true)
+                return S[i]=='T';
+            else
+                return S[i] =='F';
+        }
+        string temp = "";
+        temp =  to_string(i)+" "+ to_string(j) + " " + to_string(either);
+        if(mp.find(temp)!=mp.end()){
+            return mp[temp];
+        }
+        
+        
+        int ans=0;
+        
+        for(int k=i+1;k<=j-1;k=k+2){
+            
+            int lf=solve(S,i,k-1,false);
+            int lt=solve(S,i,k-1,true);
+            int rf=solve(S,k+1,j,false);
+            int rt=solve(S,k+1,j,true);
+    
+        if(either==true){
+            if(S[k]=='|'){
+                ans=ans + (lf*rt)+(lt*rf)+(lt*rt);
+               
+            }
+            else if(S[k]=='&'){
+                ans+=(lt*rt);
+            }
+            else if(S[k]=='^'){
+                ans+=(lf*rt) + (lt*rf);
+            }
+        }        
+        
+        else if(either==false){
+            if(S[k]=='|'){
+                ans+=(lf*rf);
+            }
+            else if(S[k]=='&'){
+                ans+=(lf*rt)+(lt*rf)+(lf*rf);
+            }
+            else if(S[k]=='^'){
+                ans+=(lf*rf) + (lt*rt);
+            }
+        }
+            
+        }
+       
+        return mp[temp]=ans%1003;
+        
+    }
+
+    int countWays(int N, string S){
+        // code here
+        int i=0,j=N-1;
+        bool isTrue=true;
+        return solve(S,i,j,isTrue);
+        
+    }
+};
+
+// { Driver Code Starts.
+
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+        int N;
+        cin>>N;
+        string S;
+        cin>>S;
+        
+        Solution ob;
+        cout<<ob.countWays(N, S)<<"\n";
+    }
+    return 0;
+}  // } Driver Code Ends
