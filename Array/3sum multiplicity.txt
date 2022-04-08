@@ -1,0 +1,73 @@
+class Solution {
+public:
+    int threeSumMulti(vector<int>& nums, int target) {
+        
+    
+        int ans=0,mod = 1e9+7;
+        int store=target,n=nums.size(),i;
+        
+        sort(nums.begin(),nums.end());
+        
+        
+        if(n<=2) return 0;
+        
+        for(i=0;i<=(n-2);i++){
+            
+            int front = i + 1;
+            
+            int last = n-1;
+            
+            target=store;
+            
+            target-=nums[i];
+            
+            while(front<last){
+                
+                int sum = nums[front]+nums[last]; 
+                
+                if(sum > target){
+                    last--;
+                    continue;
+                }
+                else if(sum <target){
+                    front++;
+                    continue;
+                }
+                
+                else{
+                
+                    
+                    int low=1,high=1;
+                 
+                    while(front<last and nums[front]==nums[front+1] ){
+                        front++;
+                        low++;
+                    }
+                    
+                    while(last>front and nums[last]==nums[last-1]){
+                        last--;
+                        high++;
+                    }
+                    
+                    // cout<<"low="<<low<<" "<<"high="<<high<<endl;
+                    
+                    if(front==last){
+                        ans  = (ans+(low*(low-1))/2)%mod;
+                    }
+                    else{
+                        ans+=((low*high)%mod);
+                    }
+                    
+                    
+                    front++;
+                    last--;
+                    
+                }
+                
+            }   
+         
+            
+        }
+        return ans;
+    }
+};
