@@ -1,0 +1,19 @@
+  int low=0,high=array.size()-1;
+		int ptr=0;
+
+    while(ptr<=high){                  // I forgot the equal sign ( important)
+
+        if(array[ptr] < a){
+            swap(array[low],array[ptr]);
+            low++;
+            ptr++;
+        }
+        else if(array[ptr] > b){
+            swap(array[ptr],array[high]);
+            high--;
+        }
+
+        else ptr++;
+
+    }
+}
