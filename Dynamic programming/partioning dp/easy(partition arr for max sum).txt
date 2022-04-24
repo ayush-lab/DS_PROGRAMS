@@ -1,0 +1,29 @@
+class Solution {
+public:
+    
+    int solve(vector<int>&arr,int start,int k,vector<int>&dp){
+        
+        if(start>=arr.size()) return 0;
+        if(dp[start]!=-1) return dp[start];
+        
+        
+        int mx_ele=0,mx_sum=0;
+        
+        for(int i=start;i<min(int(arr.size()),start+k);i++){
+            mx_ele=max(mx_ele,arr[i]);
+            mx_sum = max(mx_sum,mx_ele*(i-start+1) + solve(arr,i+1,k,dp));
+        }
+        
+        return dp[start]=mx_sum;
+        
+    }
+    
+    int maxSumAfterPartitioning(vector<int>& arr, int k) {
+        
+        vector<int> dp(arr.size()+1,-1);
+            
+            
+        return solve(arr,0,k,dp);
+        
+    }
+};
