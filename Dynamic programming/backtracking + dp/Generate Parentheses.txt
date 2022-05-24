@@ -1,0 +1,33 @@
+class Solution {
+public:
+    string s="";
+    vector<string> ans;
+    
+    void recur(int left, int right){
+        
+        if(left==0 and right==0){
+            ans.push_back(s);
+            return;
+        }
+        
+        if(left>0){
+            s+="(";
+            recur(left-1,right);
+            s.pop_back();
+        }
+        if(right>left){
+            s+=")";
+            recur(left,right-1);
+            s.pop_back();
+        }
+    }
+    
+    vector<string> generateParenthesis(int n) {
+        
+        int left=n,right=n;
+        
+        recur(left,right);
+        
+        return ans;
+    }
+};
