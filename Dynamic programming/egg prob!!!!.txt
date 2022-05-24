@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int dp[4][1003];
+    
+    int recur(int egg, int floor){
+        
+        if(egg==1) return floor;
+        
+        if(floor==1 or floor==0) return floor;
+        
+        if(dp[egg][floor]!=-1) return dp[egg][floor];
+        
+        int mn = INT_MAX;
+            
+        for(int k=1;k<=floor;k++){
+            int temp = 1+max(recur(egg-1, k-1),recur(egg,floor-k));
+            
+            mn = min(temp,mn);
+        }
+        
+        return dp[egg][floor] = mn;
+        
+    }
+    
+    int twoEggDrop(int n) {
+        
+        
+        memset(dp,-1,sizeof(dp));
+        
+        return recur(2,n);
+        
+        
+        
+        
+    }
+};
